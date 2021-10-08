@@ -14,7 +14,10 @@ class MacroMetrics(object):
     def step(self, y_trues: List[int], y_preds: List[int]):
         assert len(y_trues) == len(y_preds)
 
-        for y_true, y_pred in zip(y_trues, y_preds):
+        # for y_true, y_pred in zip(y_trues, y_preds):
+        for i in range(len(y_trues)):
+            y_true = y_trues[i]
+            y_pred = y_preds[i]
             self.p_count[y_pred] += 1
             self.t_count[y_true] += 1
             if y_true == y_pred:
