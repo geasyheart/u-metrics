@@ -68,12 +68,14 @@ class MacroMetrics(object):
             label_scores[label].setdefault('p_score', p_score)
             label_scores[label].setdefault('r_score', r_score)
             label_scores[label].setdefault('f1_score', f1_score)
+            label_scores[label].setdefault('support', t_c)
         # to_table
-        out_func("{:<10} {:<20} {:<20} {:<20}".format('label', 'precision', 'recall', 'f1-score'))
+        out_func("{:<10} {:<20} {:<20} {:<20} {:<20}".format('label', 'precision', 'recall', 'f1-score', 'support'))
         for label, scores in label_scores.items():
-            out_func("{:<10} {:<20} {:<20} {:<20}".format(
+            out_func("{:<10} {:<20} {:<20} {:<20} {:<20}".format(
                 label,
                 scores['p_score'],
                 scores['r_score'],
                 scores['f1_score'],
+                scores['support'],
             ))
