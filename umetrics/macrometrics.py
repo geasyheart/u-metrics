@@ -18,10 +18,19 @@ class MacroMetrics(object):
         for i in range(len(y_trues)):
             y_true = y_trues[i]
             y_pred = y_preds[i]
-            self.p_count[y_pred] += 1
-            self.t_count[y_true] += 1
+            try:
+                self.p_count[y_pred] += 1
+            except KeyError:
+                pass
+            try:
+                self.t_count[y_true] += 1
+            except KeyError:
+                pass
             if y_true == y_pred:
-                self.r_count[y_true] += 1
+                try:
+                    self.r_count[y_true] += 1
+                except KeyError:
+                    pass
 
     def precision_score(self):
         scores = 0.

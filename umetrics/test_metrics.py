@@ -1,12 +1,22 @@
 # -*- coding: utf8 -*-
 #
-from macrometrics import MacroMetrics
-from sklearn.metrics import classification_report, f1_score, precision_score, recall_score
-from unittest import TestCase
 import random
+from unittest import TestCase
+
+from sklearn.metrics import classification_report, f1_score, precision_score, recall_score
+
+from macrometrics import MacroMetrics
 
 
 class TestMetrics(TestCase):
+    def test_aa(self):
+        m = MacroMetrics(labels=[1, 2])
+        m.step(y_preds=[0, 0, 0, 0, 1, 1, 1, 2, 2],
+               y_trues=[0, 0, 1, 2, 1, 1, 2, 1, 2])
+        m.classification_report()
+
+        print(classification_report([0, 0, 1, 2, 1, 1, 2, 1, 2], [0, 0, 0, 0, 1, 1, 1, 2, 2], zero_division=0, labels=[1, 2]))
+
     def test_a(self):
         y_preds = [1, 1, 2, 3, 2, 2, 3, 2, 3, 0, 0]
         y_trues = [1, 1, 1, 1, 2, 2, 2, 3, 3, 0, 0]
