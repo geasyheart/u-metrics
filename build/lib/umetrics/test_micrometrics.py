@@ -1,7 +1,6 @@
 # -*- coding: utf8 -*-
 #
 import random
-from typing import List
 
 from sklearn.metrics import f1_score
 from umetrics.micrometrics import MicroMetrics
@@ -30,28 +29,7 @@ class TestMicroMetrics(TestCase):
         y_true = [random.randint(0, 10) for i in range(10000)]
         y_pred = [random.randint(0, 10) for i in range(10000)]
 
-        labels = list(range(0, 11))
+        labels = list(range(0, 10))
         m = MicroMetrics(labels=labels)
-
-        batch_y_trues = split_l(y_true, size=32)
-        batch_y_preds = split_l(y_pred, size=32)
-        for batch_y_true, batch_y_pred in zip(batch_y_trues, batch_y_preds):
-            m.step(y_trues=batch_y_true, y_preds=batch_y_pred)
-
+        m.step(y_trues=y_true, y_preds=y_pred)
         assert f1_score(y_true=y_true, y_pred=y_pred, labels=labels, average='micro') == m.f1_score()
-
-
-def split_l(l: List, size=32):
-    results = []
-    buf = []
-    buf_size = 0
-    for i in l:
-        buf.append(i)
-        buf_size += 1
-        if buf_size == size:
-            results.append(buf)
-            buf, buf_size = [], 0
-    if buf:
-        results.append(buf)
-        buf, buf_size = [], 0
-    return results
