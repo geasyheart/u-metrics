@@ -1,6 +1,7 @@
 ## Example
 
 ```python
+# macro
 from umetrics import MacroMetrics
 from sklearn.metrics import classification_report, f1_score, precision_score, recall_score
 
