@@ -40,14 +40,19 @@ class MultiLabelClassMacroF1Metric(object):
             f1s.append(f1)
         return sum(f1s) / (len(f1s) or 1e-5)
 
-    @abstractmethod
+    _label_map = {}
+
     @property
     def label_map(self) -> Dict[str, int]:
         """
         提供label_map，可以做更精细的展示
         :return:
         """
-        return {}
+        return self._label_map
+
+    @label_map.setter
+    def label_map(self, val: Dict[str, int]):
+        self._label_map = val
 
     def report(self) -> Dict:
         id_label_map = {v: k for k, v in self.label_map.items()}

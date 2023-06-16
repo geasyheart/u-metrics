@@ -1,6 +1,13 @@
 ## Example
 
 ```python
+from umetrics import CorefEvaluator
+from umetrics import MacroMetrics
+from umetrics import MicroMetrics
+from umetrics import MultiLabelClassMacroF1Metric 
+```
+
+```python
 # macro
 from umetrics import MacroMetrics
 from sklearn.metrics import classification_report, f1_score, precision_score, recall_score
