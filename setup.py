@@ -7,7 +7,7 @@ with open(path.join(this_directory, 'readme.md'), encoding='utf-8') as f:
 
 setup(
     name='u-umetrics',
-    version='1.0.10',
+    version='1.0.11',
     packages=['umetrics'],
     url='https://github.com/geasyheart/u-metrics',
     license='MIT',

@@ -29,8 +29,14 @@ class MultiLabelClassMacroF1Metric(object):
                     self.t[index] += 1
 
     def score(self) -> float:
+        labels = set([
+            *self.p.keys(),
+            *self.r.keys(),
+            *self.t.keys(),
+        ])
         f1s = []
-        for k, v in self.t.items():
+        for k in labels:
+            v = self.t[k]
             p_k = self.p[k]
             r_k = self.r[k]
 
@@ -55,13 +61,20 @@ class MultiLabelClassMacroF1Metric(object):
         self._label_map = val
 
     def report(self) -> Dict:
+
         id_label_map = {v: k for k, v in self.label_map.items()}
 
-        for k, v in sorted(self.t.items(), key=lambda x: x[1]):
-            k_name = id_label_map.get(k, k)
+        labels = set([
+            *self.p.keys(),
+            *self.r.keys(),
+            *self.t.keys(),
+        ])
+
+        for k in labels:
+            k_name = id_label_map[k]
             p_k = self.p[k]
             r_k = self.r[k]
-
+            v = self.t[k]
             p = v / (p_k or 1e-5)
             r = v / (r_k or 1e-5)
             f1 = 2 * p * r / (p + r + 1e-5)
